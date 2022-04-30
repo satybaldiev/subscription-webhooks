@@ -1,0 +1,44 @@
+{
+    "name": "axel/subscription-webhooks",
+    "description": "Handling Appstore and Android subscription webhooks/notifications",
+    "keywords": [
+        "subscription-webhooks",
+        "laravel-subscription-webhooks",
+        "laravel-appstore-server-notifications",
+        "laravel-android-server-notifications",
+        "laravel-appstore-server-webhooks",
+        "laravel-android-server-webhooks",
+        "laravel in app subscription webhooks",
+        "laravel subscription notifications",
+        "laravel subscription webhooks"
+    ],
+    "minimum-stability": "stable",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Axel\\SubscriptionWebhooks\\": "src/"
+        },
+        "files": [
+            "./helpers.php"
+        ]
+    },
+    "require": {
+        "php": "^7.4|^8.0",
+        "illuminate/support": "^5.5|^6.0|^7.0|^8.0",
+        "bensampo/laravel-enum": "*",
+        "ext-json": "*"
+    },
+    "authors": [
+        {
+            "name": "Daniiar Satybaldiev",
+            "email": "satybaldiev@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Axel\\SubscriptionWebhooks\\NotificationServiceProvider"
+            ]
+        }
+    }
+}
