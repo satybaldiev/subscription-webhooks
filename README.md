@@ -16,8 +16,14 @@ php artisan vendor:publish
 This is the config that will be published.
 ```php
 return [
+
     'jobs' => [
-        // 'initial_buy' => \App\Jobs\AppstoreNotifications\HandleInitialBuy::class,
+        'apple'=>[
+            // 'initial_buy' => \App\Jobs\AppstoreNotifications\HandleInitialBuy::class,
+        ],
+        'android'=>[
+            // 'initial_buy' => \App\Jobs\AppstoreNotifications\HandleInitialBuy::class,
+        ]
     ],
 ];
 ```
