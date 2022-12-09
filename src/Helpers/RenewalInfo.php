@@ -12,19 +12,29 @@ class RenewalInfo
     private $isInBillingRetryPeriod;
     private $signedDate;
     private $environment;
+    private $priceIncreaseStatus;
+    private $gracePeriodExpiresDate;
+    private $offerIdentifier;
+    private $offerType;
+    private $recentSubscriptionStartDate;
 
-    public static function parse($signedRenewalInfo): RenewalInfo
+    public static function parse($signedRenewalInfo): self
     {
-        $data                             = decodePayload($signedRenewalInfo);
-        $instance                         = new self();
-        $instance->expirationIntent       = $data->expirationIntent ?? null;
-        $instance->originalTransactionId  = $data->originalTransactionId ?? null;
-        $instance->autoRenewProductId     = $data->autoRenewProductId ?? null;
-        $instance->productId              = $data->productId ?? null;
-        $instance->autoRenewStatus        = $data->autoRenewStatus ?? null;
-        $instance->isInBillingRetryPeriod = $data->isInBillingRetryPeriod ?? null;
-        $instance->signedDate             = $data->signedDate ?? null;
-        $instance->environment            = $data->environment ?? null;
+        $data                                  = decodePayload($signedRenewalInfo);
+        $instance                              = new self();
+        $instance->autoRenewProductId          = $data->autoRenewProductId ?? null;
+        $instance->autoRenewStatus             = $data->autoRenewStatus ?? null;
+        $instance->environment                 = $data->environment ?? null;
+        $instance->expirationIntent            = $data->expirationIntent ?? null;
+        $instance->gracePeriodExpiresDate      = $data->gracePeriodExpiresDate ?? null;
+        $instance->isInBillingRetryPeriod      = $data->isInBillingRetryPeriod ?? null;
+        $instance->offerIdentifier             = $data->offerIdentifier ?? null;
+        $instance->offerType                   = $data->offerType ?? null;
+        $instance->originalTransactionId       = $data->originalTransactionId ?? null;
+        $instance->priceIncreaseStatus         = $data->priceIncreaseStatus ?? null;
+        $instance->productId                   = $data->productId ?? null;
+        $instance->recentSubscriptionStartDate = $data->recentSubscriptionStartDate ?? null;
+        $instance->signedDate                  = $data->signedDate ?? null;
         return $instance;
     }
 
@@ -91,5 +101,47 @@ class RenewalInfo
     {
         return $this->environment;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getPriceIncreaseStatus()
+    {
+        return $this->priceIncreaseStatus;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getGracePeriodExpiresDate()
+    {
+        return $this->gracePeriodExpiresDate;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getOfferIdentifier()
+    {
+        return $this->offerIdentifier;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getOfferType()
+    {
+        return $this->offerType;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRecentSubscriptionStartDate()
+    {
+        return $this->recentSubscriptionStartDate;
+    }
+
+
 
 }

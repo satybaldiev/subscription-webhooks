@@ -7,13 +7,14 @@ use Illuminate\Http\Request;
 
 class NotificationPayload extends BaseJsonClass
 {
-    private $notificationType;
-    private $subType;
-    private $notificationUUID;
-    private $data;
-    private $payload;
+    private                  $notificationType;
+    private                  $subType;
+    private                  $notificationUUID;
+    private NotificationData $data;
+    private                  $payload;
+    private                  $version;
 
-    public static function parse(Request $request): NotificationPayload
+    public static function parse(Request $request): self
     {
         $payload                    = decodePayload($request->get('signedPayload'));
         $instance                   = new self();
@@ -21,9 +22,18 @@ class NotificationPayload extends BaseJsonClass
         $instance->notificationType = $payload->notificationType;
         $instance->subType          = $payload->subtype ?? null;
         $instance->notificationUUID = $payload->notificationUUID;
+        $instance->version          = $payload->version;
         $instance->data             = NotificationData::parse($payload->data);
         return $instance;
 
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getVersion()
+    {
+        return $this->version;
     }
 
     /**
@@ -59,9 +69,9 @@ class NotificationPayload extends BaseJsonClass
     }
 
     /**
-     * @return mixed
+     * @return NotificationData
      */
-    public function getData()
+    public function getData(): NotificationData
     {
         return $this->data;
     }

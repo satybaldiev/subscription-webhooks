@@ -19,4 +19,5 @@ class NotificationTypes extends Enum
     const RENEWAL_EXTENDED          = 'renewal_extended';
     const REVOKE                    = 'revoke';
     const SUBSCRIBED                = 'subscribed';
+    const TEST                      = 'test';
 }

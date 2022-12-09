@@ -12,11 +12,8 @@ class NotificationData extends BaseJsonClass
     private TransactionInfo $transactionInfo;
     private RenewalInfo $renewalInfo;
 
-    public function __construct()
-    {
-    }
 
-    public static function parse($data)
+    public static function parse($data) : self
     {
         $instance = new self();
         $instance->bundleId = $data->bundleId;

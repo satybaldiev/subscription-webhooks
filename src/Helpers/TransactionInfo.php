@@ -18,25 +18,37 @@ class TransactionInfo extends BaseJsonClass
     private $inAppOwnershipType;
     private $signedDate;
     private $environment;
+    private $appAccountToken;
+    private $isUpgraded;
+    private $offerIdentifier;
+    private $offerType;
+    private $revocationDate;
+    private $revocationReason;
 
-    public static function parse($signedTransactionInfo): TransactionInfo
+    public static function parse($signedTransactionInfo): self
     {
         $data                                  = decodePayload($signedTransactionInfo);
         $instance                              = new self();
-        $instance->transactionId               = $data->transactionId ?? null;
-        $instance->originalTransactionId       = $data->originalTransactionId?? null;
-        $instance->webOrderLineItemId          = $data->webOrderLineItemId ?? null;
+        $instance->appAccountToken             = $data->appAccountToken ?? null;
         $instance->bundleId                    = $data->bundleId ?? null;
-        $instance->productId                   = $data->productId ?? null;
-        $instance->subscriptionGroupIdentifier = $data->subscriptionGroupIdentifier ?? null;
-        $instance->purchaseDate                = $data->purchaseDate ?? null;
-        $instance->originalPurchaseDate        = $data->originalPurchaseDate ?? null;
-        $instance->expiresDate                 = $data->expiresDate ?? null;
-        $instance->quantity                    = $data->quantity ?? null;
-        $instance->type                        = $data->type ?? null;
-        $instance->inAppOwnershipType          = $data->inAppOwnershipType ?? null;
-        $instance->signedDate                  = $data->signedDate ?? null;
         $instance->environment                 = $data->environment ?? null;
+        $instance->expiresDate                 = $data->expiresDate ?? null;
+        $instance->inAppOwnershipType          = $data->inAppOwnershipType ?? null;
+        $instance->isUpgraded                  = $data->isUpgraded ?? null;
+        $instance->offerIdentifier             = $data->offerIdentifier ?? null;
+        $instance->offerType                   = $data->offerType ?? null;
+        $instance->originalPurchaseDate        = $data->originalPurchaseDate ?? null;
+        $instance->originalTransactionId       = $data->originalTransactionId ?? null;
+        $instance->productId                   = $data->productId ?? null;
+        $instance->purchaseDate                = $data->purchaseDate ?? null;
+        $instance->quantity                    = $data->quantity ?? null;
+        $instance->revocationDate              = $data->revocationDate ?? null;
+        $instance->revocationReason            = $data->revocationReason ?? null;
+        $instance->signedDate                  = $data->signedDate ?? null;
+        $instance->subscriptionGroupIdentifier = $data->subscriptionGroupIdentifier ?? null;
+        $instance->transactionId               = $data->transactionId ?? null;
+        $instance->type                        = $data->type ?? null;
+        $instance->webOrderLineItemId          = $data->webOrderLineItemId ?? null;
         return $instance;
     }
 
@@ -150,5 +162,52 @@ class TransactionInfo extends BaseJsonClass
     public function getEnvironment()
     {
         return $this->environment;
+    }
+    /**
+     * @return mixed
+     */
+    public function getAppAccountToken()
+    {
+        return $this->appAccountToken;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getIsUpgraded()
+    {
+        return $this->isUpgraded;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getOfferIdentifier()
+    {
+        return $this->offerIdentifier;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getOfferType()
+    {
+        return $this->offerType;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRevocationDate()
+    {
+        return $this->revocationDate;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRevocationReason()
+    {
+        return $this->revocationReason;
     }
 }
