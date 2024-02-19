@@ -1,6 +1,6 @@
 <?php
 
-namespace Axel\SubscriptionWebhooks\Helpers;
+namespace Axel\SubscriptionWebhooks\Helpers\Apple;
 use BenSampo\Enum\Enum;
 
 class NotificationTypes extends Enum
