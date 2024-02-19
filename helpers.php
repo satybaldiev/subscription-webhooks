@@ -1,9 +1,27 @@
 <?php
 
+use Axel\SubscriptionWebhooks\Enum\DeviceTypes;
+
 if (!function_exists('decodePayload')) {
-    function decodePayload($signedPayload)
+    /**
+     * @throws ReflectionException
+     */
+    function decodePayload(string $payload, string $type) : mixed
     {
-        $tokenParts = explode(".", $signedPayload);
-        return json_decode(base64_decode($tokenParts[1]));
+        if (!in_array($type, DeviceTypes::getAll())) {
+            return throw new Exception("INVALID DEVICE TYPE");
+        }
+        $data = null;
+        switch ($type) {
+            case DeviceTypes::APPLE:
+                $tokenParts = explode(".", $payload);
+                $data = base64_decode($tokenParts[1]);
+                break;
+            case DeviceTypes::GOOGLE:
+                $data = base64_decode($payload);
+                break;
+        }
+
+        return json_decode($data);
     }
 }
