@@ -1,8 +1,10 @@
 <?php
 
-namespace Axel\SubscriptionWebhooks\Helpers;
+namespace Axel\SubscriptionWebhooks\Helpers\Apple;
 
-use Axel\SubscriptionWebhooks\Exceptions\WebhookFailed;
+
+use Axel\SubscriptionWebhooks\Enum\DeviceTypes;
+use Axel\SubscriptionWebhooks\Helpers\BaseJsonClass;
 use Illuminate\Http\Request;
 
 class NotificationPayload extends BaseJsonClass
@@ -16,7 +18,7 @@ class NotificationPayload extends BaseJsonClass
 
     public static function parse(Request $request): self
     {
-        $payload                    = decodePayload($request->get('signedPayload'));
+        $payload                    = decodePayload($request->get('signedPayload'), DeviceTypes::APPLE);
         $instance                   = new self();
         $instance->payload          = $request->getContent();
         $instance->notificationType = $payload->notificationType;
@@ -24,6 +26,7 @@ class NotificationPayload extends BaseJsonClass
         $instance->notificationUUID = $payload->notificationUUID;
         $instance->version          = $payload->version;
         $instance->data             = NotificationData::parse($payload->data);
+
         return $instance;
 
     }

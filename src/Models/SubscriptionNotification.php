@@ -2,7 +2,7 @@
 
 namespace Axel\SubscriptionWebhooks\Models;
 
-use Axel\SubscriptionWebhooks\Helpers\NotificationPayload;
+
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Schema;
 
@@ -14,28 +14,28 @@ class SubscriptionNotification extends Model
         'payload' => 'array',
     ];
 
-    public static function storeNotification($source,string $notificationType, string $notificationPayload)
+    public static function storeNotification(string $source, string $notificationType, string $notificationPayload)
     {
-
         if (Schema::hasTable('subscription_notifications')) {
             return self::create(
                 [
-                    'source'    => $source,
+                    'source'  => $source,
                     'type'    => $notificationType,
                     'payload' => $notificationPayload,
                 ]
             );
         }
     }
-    public static function storeException($source,string $notificationType, string $notificationPayload, $exception)
+
+    public static function storeException(string $source, string $notificationType, string $notificationPayload, $exception)
     {
 
         if (Schema::hasTable('subscription_notifications')) {
             return self::create(
                 [
                     'source'    => $source,
-                    'type'    => $notificationType,
-                    'payload' => $notificationPayload,
+                    'type'      => $notificationType,
+                    'payload'   => $notificationPayload,
                     'exception' => $exception,
                 ]
             );

@@ -1,7 +1,9 @@
 <?php
 
-namespace Axel\SubscriptionWebhooks\Helpers;
+namespace Axel\SubscriptionWebhooks\Helpers\Apple;
 
+
+use Axel\SubscriptionWebhooks\Helpers\BaseJsonClass;
 
 class NotificationData extends BaseJsonClass
 {

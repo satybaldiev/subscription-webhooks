@@ -1,6 +1,9 @@
 <?php
 
-namespace Axel\SubscriptionWebhooks\Helpers;
+namespace Axel\SubscriptionWebhooks\Helpers\Apple;
+
+
+use Axel\SubscriptionWebhooks\Enum\DeviceTypes;
 
 class RenewalInfo
 {
@@ -20,7 +23,7 @@ class RenewalInfo
 
     public static function parse($signedRenewalInfo): self
     {
-        $data                                  = decodePayload($signedRenewalInfo);
+        $data                                  = decodePayload($signedRenewalInfo, DeviceTypes::APPLE);
         $instance                              = new self();
         $instance->autoRenewProductId          = $data->autoRenewProductId ?? null;
         $instance->autoRenewStatus             = $data->autoRenewStatus ?? null;

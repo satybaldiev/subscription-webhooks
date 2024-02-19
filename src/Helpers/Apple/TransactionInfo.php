@@ -1,6 +1,10 @@
 <?php
 
-namespace Axel\SubscriptionWebhooks\Helpers;
+namespace Axel\SubscriptionWebhooks\Helpers\Apple;
+
+
+use Axel\SubscriptionWebhooks\Enum\DeviceTypes;
+use Axel\SubscriptionWebhooks\Helpers\BaseJsonClass;
 
 class TransactionInfo extends BaseJsonClass
 {
@@ -27,7 +31,7 @@ class TransactionInfo extends BaseJsonClass
 
     public static function parse($signedTransactionInfo): self
     {
-        $data                                  = decodePayload($signedTransactionInfo);
+        $data                                  = decodePayload($signedTransactionInfo, DeviceTypes::APPLE);
         $instance                              = new self();
         $instance->appAccountToken             = $data->appAccountToken ?? null;
         $instance->bundleId                    = $data->bundleId ?? null;
