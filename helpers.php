@@ -17,7 +17,7 @@ if (!function_exists('decodePayload')) {
                 $tokenParts = explode(".", $payload);
                 $data = base64_decode($tokenParts[1]);
                 break;
-            case DeviceTypes::GOOGLE:
+            case DeviceTypes::ANDROID:
                 $data = base64_decode($payload);
                 break;
         }

@@ -52,9 +52,9 @@ class WebhookController
             }
 
             $jobKey = GoogleNotificationTypes::JOBS[$payload->getData()->getSubscriptionNotification()->getNotificationType()];
-            $log = SubscriptionNotification::storeNotification(DeviceTypes::GOOGLE, $jobKey, $request->getContent());
+            $log = SubscriptionNotification::storeNotification(DeviceTypes::ANDROID, $jobKey, $request->getContent());
 
-            $jobClass = config("subscription-webhooks.jobs." . DeviceTypes::GOOGLE . ".{$jobKey}", null);
+            $jobClass = config("subscription-webhooks.jobs." . DeviceTypes::ANDROID . ".{$jobKey}", null);
             if (is_null($jobClass) || !class_exists($jobClass)) {
                 throw WebhookFailed::jobClassDoesNotExist($jobKey);
             }
@@ -68,7 +68,7 @@ class WebhookController
                 $log->save();
             }
             else{
-                SubscriptionNotification::storeException(DeviceTypes::GOOGLE, $jobKey ?? 'unknown', $request->getContent(), $exception->getMessage());
+                SubscriptionNotification::storeException(DeviceTypes::ANDROID, $jobKey ?? 'unknown', $request->getContent(), $exception->getMessage());
             }
             throw $exception;
         }

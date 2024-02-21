@@ -9,7 +9,7 @@ class DeviceTypes
 {
     private static $values = [];
     const APPLE = 'apple';
-    const GOOGLE = 'google';
+    const ANDROID = 'android';
 
     /**
      * Gets all available keys with values.
