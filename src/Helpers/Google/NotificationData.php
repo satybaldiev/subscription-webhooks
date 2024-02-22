@@ -18,7 +18,7 @@ class NotificationData extends BaseJsonClass
 
     public static function parse($data) : self
     {
-        $data                      = decodePayload($data, DeviceTypes::GOOGLE);
+        $data                      = decodePayload($data, DeviceTypes::ANDROID);
         $instance                  = new self();
         $instance->version         = $data->version;
         $instance->packageName     = $data->packageName;
