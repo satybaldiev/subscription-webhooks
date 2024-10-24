@@ -7,8 +7,9 @@ use Axel\SubscriptionWebhooks\Exceptions\WebhookFailed;
 use Axel\SubscriptionWebhooks\Helpers\Apple\NotificationPayload;
 use Axel\SubscriptionWebhooks\Helpers\Google\NotificationPayload as GoogleNotificationPayload;
 use Axel\SubscriptionWebhooks\Helpers\Apple\NotificationTypes;
+use Axel\SubscriptionWebhooks\Helpers\Apple\OneTimeNotificationTypes;
 use Axel\SubscriptionWebhooks\Helpers\Google\NotificationTypes as GoogleNotificationTypes;
-use Axel\SubscriptionWebhooks\Helpers\Google\OneTimeNotificationTypes;
+use Axel\SubscriptionWebhooks\Helpers\Google\OneTimeNotificationTypes as GoogleOneTimeNotificationTypes;
 use Axel\SubscriptionWebhooks\Helpers\Google\OneTimeProductNotification;
 use Axel\SubscriptionWebhooks\Models\SubscriptionNotification;
 use Illuminate\Http\Request;
@@ -21,7 +22,15 @@ class WebhookController
         $log    = null;
         try {
             $payload = NotificationPayload::parse($request);
-            $jobKey = NotificationTypes::{$payload->getNotificationType()}();
+            try {
+                if (!$payload->getData()->getRenewalInfo()) {
+                    $jobKey = OneTimeNotificationTypes::{$payload->getNotificationType()}();
+                } else {
+                    $jobKey = NotificationTypes::{$payload->getNotificationType()}();
+                }
+            } catch (\Exception $e) {
+                throw WebhookFailed::notificationTypeDoesNotExist($payload->getNotificationType());
+            }
 
             $log = SubscriptionNotification::storeNotification(DeviceTypes::APPLE, $jobKey, $request->getContent());
 
@@ -53,7 +62,7 @@ class WebhookController
             $payload = GoogleNotificationPayload::parse($request);
 
             if ($payload->getData()->getOneTimeProductNotification()) {
-                $jobKey = OneTimeNotificationTypes::JOBS[$payload->getData()->getOneTimeProductNotification()->getNotificationType()];
+                $jobKey = GoogleOneTimeNotificationTypes::JOBS[$payload->getData()->getOneTimeProductNotification()->getNotificationType()];
             } elseif ($payload->getData()->getSubscriptionNotification()) {
                 $jobKey = GoogleNotificationTypes::JOBS[$payload->getData()->getSubscriptionNotification()->getNotificationType()];
             } else {

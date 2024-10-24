@@ -11,18 +11,18 @@ class NotificationData extends BaseJsonClass
     private $bundleVersion;
     private $environment;
 
-    private TransactionInfo $transactionInfo;
-    private RenewalInfo $renewalInfo;
+    private TransactionInfo  $transactionInfo;
+    private RenewalInfo|null $renewalInfo;
 
 
-    public static function parse($data) : self
+    public static function parse($data): self
     {
-        $instance = new self();
-        $instance->bundleId = $data->bundleId;
-        $instance->bundleVersion = $data->bundleVersion;
-        $instance->environment = $data->environment;
+        $instance                  = new self();
+        $instance->bundleId        = $data->bundleId;
+        $instance->bundleVersion   = $data->bundleVersion;
+        $instance->environment     = $data->environment;
         $instance->transactionInfo = TransactionInfo::parse($data->signedTransactionInfo);
-        $instance->renewalInfo = RenewalInfo::parse($data->signedRenewalInfo);
+        $instance->renewalInfo     = isset($data->signedRenewalInfo) ? RenewalInfo::parse($data->signedRenewalInfo) : null;
 
         return $instance;
     }
@@ -62,7 +62,7 @@ class NotificationData extends BaseJsonClass
     /**
      * @return RenewalInfo
      */
-    public function getRenewalInfo(): RenewalInfo
+    public function getRenewalInfo(): RenewalInfo|null
     {
         return $this->renewalInfo;
     }
