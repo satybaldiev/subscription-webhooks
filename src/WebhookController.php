@@ -60,6 +60,11 @@ class WebhookController
         $log    = null;
         try {
             $payload = GoogleNotificationPayload::parse($request);
+            
+            if ($payload->getData()->getTestNotification()) {
+                SubscriptionNotification::storeNotification(DeviceTypes::ANDROID, 'test', $request->getContent());
+                return response()->json();
+            }
 
             if ($payload->getData()->getOneTimeProductNotification()) {
                 $jobKey = GoogleOneTimeNotificationTypes::JOBS[$payload->getData()->getOneTimeProductNotification()->getNotificationType()];
