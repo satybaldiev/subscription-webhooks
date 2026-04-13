@@ -7,6 +7,17 @@ You can install this package via composer
 composer require axel/subscription-webhooks 
  ```
 
+Supported versions:
+
+- PHP `8.0+`
+- Laravel `8.x` through `13.x`
+
+Testing:
+
+```bash
+composer test
+```
+
 The service provider will register itself.
 Publish the config and migration files with:
 

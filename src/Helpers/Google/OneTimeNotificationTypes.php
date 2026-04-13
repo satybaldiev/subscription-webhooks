@@ -1,9 +1,8 @@
 <?php
 
 namespace Axel\SubscriptionWebhooks\Helpers\Google;
-use BenSampo\Enum\Enum;
 
-class OneTimeNotificationTypes extends Enum
+class OneTimeNotificationTypes
 {
     const JOBS = [
         1 => 'one_time_product_purchased',

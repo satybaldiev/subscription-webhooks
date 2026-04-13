@@ -1,9 +1,9 @@
 <?php
 
 namespace Axel\SubscriptionWebhooks\Helpers\Apple;
-use BenSampo\Enum\Enum;
+use Axel\SubscriptionWebhooks\Helpers\StaticEnum;
 
-class NotificationTypes extends Enum
+class NotificationTypes extends StaticEnum
 {
     const CONSUMPTION_REQUEST       = 'consumption_request';
     const DID_CHANGE_RENEWAL_PREF   = 'did_change_renewal_pref';

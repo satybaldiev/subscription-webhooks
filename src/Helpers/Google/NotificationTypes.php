@@ -1,9 +1,8 @@
 <?php
 
 namespace Axel\SubscriptionWebhooks\Helpers\Google;
-use BenSampo\Enum\Enum;
 
-class NotificationTypes extends Enum
+class NotificationTypes
 {
     const JOBS = [
         1 => 'subscription_recovered', // subscription was recovered from account hold.
